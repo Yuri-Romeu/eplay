@@ -1,0 +1,7 @@
+{
+  "editor.formatOnSave": false,
+  "prettier.requireConfig": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  }
+}
