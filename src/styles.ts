@@ -1,4 +1,3 @@
-import styled from 'styled-components';
 import { createGlobalStyle } from 'styled-components';
 
 export const Cores = {
@@ -23,10 +22,10 @@ export const GlobalCss = createGlobalStyle`
     padding-top: 40px;
   }
 
-  `;
+  .container {
+    max-width: 1024px;
+    width: 100%;
+    margin: 0 auto;
+  }
 
-export const Container = styled.div`
-  max-width: 1024px;
-  width: 100%;
-  margin: 0 auto;
-`;
+  `;
