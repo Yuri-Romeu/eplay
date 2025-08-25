@@ -1,5 +1,3 @@
-import { info } from 'console';
-import Banner from '../../components/Banner';
 import ProductsList from '../../components/ProductsList';
 import residente from '../../assets/images/resident.png';
 import diablo from '../../assets/images/diablo.png';
@@ -93,14 +91,15 @@ const emBreve: Game[] = [
   }
 ];
 
-const Home = () => {
+const Categories = () => {
   return (
     <>
-      <Banner />
-      <ProductsList games={promocoes} title="Promoções" background="gray" />
-      <ProductsList games={emBreve} title="Em Breve" background="black" />
+      <ProductsList games={promocoes} title="RPG" background="gray" />
+      <ProductsList games={emBreve} title="Ação" background="black" />
+      <ProductsList games={promocoes} title="Aventura" background="gray" />
+      <ProductsList games={emBreve} title="FPS" background="black" />
     </>
   );
 };
 
-export default Home;
+export default Categories;
