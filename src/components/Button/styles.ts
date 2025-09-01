@@ -2,10 +2,14 @@ import styled from 'styled-components';
 import { Cores } from '../../styles';
 import { Link } from 'react-router-dom';
 
-export const ButtonContainer = styled.button`
-  border: 2px solid ${Cores.branca};
+import { Props } from '.';
+
+export const ButtonContainer = styled.button<Props>`
+  border: 2px solid
+    ${(props) => (props.variant === 'primary' ? Cores.verde : Cores.branca)};
   color: ${Cores.branca};
-  background-color: transparent;
+  background-color: ${(props) =>
+    props.variant === 'primary' ? Cores.verde : 'transparent'};
   font-size: 16px;
   font-weight: bold;
   padding: 8px 16px;
