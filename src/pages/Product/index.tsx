@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom';
 import Hero from '../../components/Hero';
 import Section from '../../components/Section';
 import Gallery from '../../components/Gallery';
+import residenteEvil from '../../assets/images/resident.png';
 
 const Product = () => {
   const { id } = useParams();
@@ -35,7 +36,7 @@ const Product = () => {
           ser ajustadas nas configurações do jogo.
         </p>
       </Section>
-      <Gallery />
+      <Gallery defaultCover={residenteEvil} name="Jogo teste" />
     </>
   );
 };
