@@ -34,7 +34,7 @@ const Categories = () => {
     fetch('https://ebac-fake-api.vercel.app/api/eplay/rpg')
       .then((res) => res.json())
       .then((res) => setGamesRPG(res));
-  });
+  }, []);
 
   return (
     <>
