@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { info } from 'console';
 import Banner from '../../components/Banner';
 import ProductsList from '../../components/ProductsList';
@@ -5,95 +6,51 @@ import residente from '../../assets/images/resident.png';
 import diablo from '../../assets/images/diablo.png';
 import zelda from '../../assets/images/zelda.png';
 import starWars from '../../assets/images/star_wars.png';
-import Game from '../../models/Game';
 
-const promocoes: Game[] = [
-  {
-    id: 1,
-    category: 'Ação',
-    title: 'Resident Evil 4',
-    system: 'Windows',
-    infos: ['10%', 'R$ 250,00'],
-    image: residente,
-    description:
-      'Resident Evil 4, conhecido no Japão como Biohazard 4, é um jogo eletrônico de survival horror...'
-  },
-  {
-    id: 2,
-    category: 'Ação',
-    title: '',
-    system: 'PS5',
-    infos: ['5%', 'R$ 290,00'],
-    image: residente,
-    description:
-      'Resident Evil 4, conhecido no Japão como Biohazard 4, é um jogo eletrônico de survival horror...'
-  },
-  {
-    id: 3,
-    category: 'Ação',
-    title: 'Resident Evil 4',
-    system: 'Windows',
-    infos: ['10%', 'R$ 250,00'],
-    image: residente,
-    description:
-      'Resident Evil 4, conhecido no Japão como Biohazard 4, é um jogo eletrônico de survival horror...'
-  },
-  {
-    id: 4,
-    category: 'Ação',
-    title: 'Resident Evil 4',
-    system: 'Windows',
-    infos: ['10%', 'R$ 250,00'],
-    image: residente,
-    description:
-      'Resident Evil 4, conhecido no Japão como Biohazard 4, é um jogo eletrônico de survival horror...'
-  }
-];
+export interface GalleryItem {
+  type: 'video' | 'image';
+  url: string;
+}
 
-const emBreve: Game[] = [
-  {
-    id: 5,
-    category: 'RPG',
-    description:
-      'Diablo IV é um RPG de ação em desenvolvimento pela Blizzard Entertainment.',
-    image: diablo,
-    title: 'Diablo IV',
-    infos: ['17/05'],
-    system: 'Windows'
-  },
-  {
-    id: 6,
-    category: 'Aventura',
-    description:
-      'Star Wars Jedi: Survivor  é um próximo jogo de ação e aventura desenvolvido pela Respawn...',
-    infos: ['05/04'],
-    image: starWars,
-    title: 'Star Wars',
-    system: 'Windows'
-  },
-  {
-    id: 7,
-    category: 'Ação',
-    title: 'Resident Evil 4',
-    system: 'Windows',
-    infos: ['10%', 'R$ 250,00'],
-    image: residente,
-    description:
-      'Resident Evil 4, conhecido no Japão como Biohazard 4, é um jogo eletrônico de survival horror...'
-  },
-  {
-    id: 8,
-    category: 'RPG',
-    description:
-      'Uma aventura épica pela terra e pelos céus de Hyrule aguarda em The Legend of Zelda™...',
-    infos: ['05/04'],
-    image: zelda,
-    title: 'The Legend of Zelda - TOK',
-    system: 'Switch'
-  }
-];
+export type Game = {
+  id: number;
+  name: string;
+  title: string;
+  description: string;
+  release_date?: string;
+  prices: {
+    discount?: number;
+    old?: number;
+    current?: number;
+  };
+  details: {
+    category: string;
+    system: string;
+    developer: string;
+    publisher: string;
+    languages: string[];
+  };
+  media: {
+    thumbnail: string;
+    cover: string;
+    gallery: GalleryItem[];
+  };
+};
 
 const Home = () => {
+  const [promocoes, setPromocoes] = useState<Game[]>([]);
+  const [emBreve, setEmBreve] = useState<Game[]>([]);
+
+  useEffect(() => {
+    fetch('https://ebac-fake-api.vercel.app/api/eplay/promocoes')
+      .then((res) => res.json())
+      .then((res) => setPromocoes(res));
+
+    fetch('https://ebac-fake-api.vercel.app/api/eplay/em-breve')
+      .then((res) => res.json())
+      .then((res) => setEmBreve(res));
+  }, []);
+
   return (
     <>
       <Banner />

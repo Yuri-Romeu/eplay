@@ -8,10 +8,7 @@ import play from '../../assets/images/play.png';
 import zoom from '../../assets/images/zoom.png';
 import fechar from '../../assets/images/fechar.png';
 
-interface GalleryItem {
-  type: 'video' | 'image';
-  url: string;
-}
+import { GalleryItem } from '../../pages/Home';
 
 const mock: GalleryItem[] = [
   {
