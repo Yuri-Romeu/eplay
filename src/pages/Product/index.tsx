@@ -5,17 +5,11 @@ import Section from '../../components/Section';
 import Gallery from '../../components/Gallery';
 import residenteEvil from '../../assets/images/resident.png';
 import { Game } from '../Home';
+import { useGetGameQuery } from '../../services/api';
 
 const Product = () => {
   const { id } = useParams();
-
-  const [game, setGame] = useState<Game>();
-
-  useEffect(() => {
-    fetch(`https://ebac-fake-api.vercel.app/api/eplay/jogos/${id}`)
-      .then((res) => res.json())
-      .then((res) => setGame(res));
-  }, [id]);
+  const { data: game } = useGetGameQuery(id!);
 
   if (!game) {
     return <h3>Carregando...</h3>;
