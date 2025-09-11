@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { breakpoints, Cores } from '../../styles';
+import { breakpoints, colors } from '../../styles';
 
 export const Links = styled.ul`
   display: flex;
@@ -11,14 +11,14 @@ export const Links = styled.ul`
   }
 `;
 export const HeaderBar = styled.header`
-  background-color: ${Cores.cinza};
+  background-color: ${colors.gray};
   padding: 24px;
   border-radius: 16px;
   margin-bottom: 80px;
 
   a,
   span {
-    color: ${Cores.branca};
+    color: ${colors.white};
     text-decoration: none;
     font-weight: bold;
   }
@@ -98,7 +98,7 @@ export const Hamburger = styled.div`
     display: block;
     width: 100%;
     height: 2px;
-    background-color: ${Cores.branca};
+    background-color: ${colors.white};
     margin-bottom: 4px;
   }
 

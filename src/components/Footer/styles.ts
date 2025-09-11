@@ -1,9 +1,9 @@
 import styled from 'styled-components';
-import { Cores } from '../../styles';
+import { colors } from '../../styles';
 import { HashLink } from 'react-router-hash-link';
 
 export const Container = styled.footer`
-  background-color: ${Cores.cinza};
+  background-color: ${colors.gray};
   padding: 32px 0;
   font-size: 14px;
   margin-top: 40px;
@@ -11,7 +11,7 @@ export const Container = styled.footer`
 
 export const SectionTitle = styled.h4`
   font-size: 16px;
-  color: ${Cores.branca};
+  color: ${colors.white};
   font-weight: bold;
 `;
 
@@ -21,7 +21,7 @@ export const Links = styled.ul`
 `;
 
 export const Link = styled(HashLink)`
-  color: ${Cores.cinzaClaro};
+  color: ${colors.lightGray};
   text-decoration: none;
   margin-right: 8px;
 `;
@@ -31,5 +31,5 @@ export const FooterSection = styled.div`
 `;
 
 export const Copyright = styled.p`
-  color: ${Cores.cinzaClaro};
+  color: ${colors.lightGray};
 `;
