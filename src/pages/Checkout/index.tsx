@@ -9,9 +9,11 @@ import cartao from '../../assets/images/cartao.png';
 import { useFormik } from 'formik';
 
 import * as Yup from 'yup';
+import { usePurchaseMutation } from '../../services/api';
 
 const Checkout = () => {
   const [payWithCard, setPayWithCard] = useState(false);
+  const [purchase, { isLoading, isError, data }] = usePurchaseMutation();
 
   const form = useFormik({
     initialValues: {
@@ -26,69 +28,84 @@ const Checkout = () => {
       cardNumber: '',
       expiresMonth: '',
       expiresYear: '',
-      cardCode: '',
+      cardCode: 1,
       installments: 1
     },
-
     validationSchema: Yup.object({
       fullName: Yup.string()
-        .min(5, 'O nome precisa ter no mínimo 5 caracteres')
+        .min(5, 'O nome precisa ter no mínimo 5 caracteres')
         .required('O campo é obrigatório'),
-
       email: Yup.string()
         .email('E-mail inválido')
         .required('O campo é obrigatório'),
-
       cpf: Yup.string()
-        .min(14, 'O CPF precisa ter no mínimo 14 caracteres')
-        .max(14, 'O CPF precisa ter no máximo 14 caracteres')
+        .min(14, 'O campo precisa ter 14 caracteres')
+        .max(15, 'O campo precisa ter 14 caracteres')
         .required('O campo é obrigatório'),
-
       deliveryEmail: Yup.string()
         .email('E-mail inválido')
         .required('O campo é obrigatório'),
-
       confirmDeliveryEmail: Yup.string()
-        .oneOf([Yup.ref('deliveryEmail')], 'Os e-mails devem ser iguais')
+        .oneOf([Yup.ref('deliveryEmail')], 'Os e-mails não correspondem')
         .required('O campo é obrigatório'),
-
-      // cartao
 
       cardOwner: Yup.string().when((values, schema) =>
         payWithCard ? schema.required('O campo é obrigatório') : schema
       ),
-
       cpfCardOwner: Yup.string().when((values, schema) =>
         payWithCard ? schema.required('O campo é obrigatório') : schema
       ),
-
       cardDisplayName: Yup.string().when((values, schema) =>
         payWithCard ? schema.required('O campo é obrigatório') : schema
       ),
-
       cardNumber: Yup.string().when((values, schema) =>
         payWithCard ? schema.required('O campo é obrigatório') : schema
       ),
-
       expiresMonth: Yup.string().when((values, schema) =>
         payWithCard ? schema.required('O campo é obrigatório') : schema
       ),
-
-      expiresYear: Yup.string()
-        .min(4, 'O campo precisa ter pelo menos 4 caracteres')
-        .required('O campo é obrigatório'),
-
-      cardCode: Yup.string().when((values, schema) =>
+      expiresYear: Yup.string().when((values, schema) =>
         payWithCard ? schema.required('O campo é obrigatório') : schema
       ),
-
+      cardCode: Yup.number().when((values, schema) =>
+        payWithCard ? schema.required('O campo é obrigatório') : schema
+      ),
       installments: Yup.number().when((values, schema) =>
         payWithCard ? schema.required('O campo é obrigatório') : schema
       )
     }),
-
     onSubmit: (values) => {
-      console.log(values);
+      purchase({
+        billing: {
+          document: values.cpf,
+          email: values.email,
+          name: values.fullName
+        },
+        delivery: {
+          email: values.deliveryEmail
+        },
+        payment: {
+          installments: values.installments,
+          card: {
+            active: payWithCard,
+            code: Number(values.cardCode),
+            name: values.cardDisplayName,
+            number: values.cardNumber,
+            owner: {
+              document: values.cpfCardOwner,
+              name: values.cardOwner
+            },
+            expires: {
+              month: values.expiresMonth,
+              year: values.expiresYear
+            }
+          }
+        },
+        products: [
+          id: 1, price: 10
+        ]
+
+      });
     }
   });
 
