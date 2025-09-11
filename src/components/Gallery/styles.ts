@@ -22,8 +22,8 @@ export const Action = styled.div`
 `;
 
 export const Item = styled.li`
-  margin-right: 16px;
   position: relative;
+  cursor: zoom-in;
 
   > img {
     border: 2px solid ${Cores.branca};

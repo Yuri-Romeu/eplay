@@ -1,4 +1,9 @@
+import { useDispatch, useSelector } from 'react-redux';
+import { RootReducer } from '../../store';
+
 import Button from '../Button';
+import Tag from '../Tag';
+
 import {
   CartContainer,
   CartItem,
@@ -7,10 +12,6 @@ import {
   Quantity,
   Sidebar
 } from './styles';
-import starWars from '../../assets/images/star_wars.png';
-import Tag from '../Tag';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootReducer } from '../../store';
 
 import { close, remove } from '../../store/reducers/cart';
 import { formataPreco } from '../ProductsList';
