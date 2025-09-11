@@ -28,8 +28,8 @@ const Checkout = () => {
       cardNumber: '',
       expiresMonth: '',
       expiresYear: '',
-      cardCode: 1,
-      installments: 1
+      cardCode: '',
+      installments: ''
     },
     validationSchema: Yup.object({
       fullName: Yup.string()
@@ -67,10 +67,10 @@ const Checkout = () => {
       expiresYear: Yup.string().when((values, schema) =>
         payWithCard ? schema.required('O campo é obrigatório') : schema
       ),
-      cardCode: Yup.number().when((values, schema) =>
+      cardCode: Yup.string().when((values, schema) =>
         payWithCard ? schema.required('O campo é obrigatório') : schema
       ),
-      installments: Yup.number().when((values, schema) =>
+      installments: Yup.string().when((values, schema) =>
         payWithCard ? schema.required('O campo é obrigatório') : schema
       )
     }),
@@ -85,7 +85,7 @@ const Checkout = () => {
           email: values.deliveryEmail
         },
         payment: {
-          installments: values.installments,
+          installments: 1,
           card: {
             active: payWithCard,
             code: Number(values.cardCode),
@@ -96,15 +96,12 @@ const Checkout = () => {
               name: values.cardOwner
             },
             expires: {
-              month: values.expiresMonth,
-              year: values.expiresYear
+              month: 1,
+              year: 2025
             }
           }
         },
-        products: [
-          id: 1, price: 10
-        ]
-
+        products: [{ id: 1, price: 10 }]
       });
     }
   });
